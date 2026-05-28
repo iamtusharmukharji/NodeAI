@@ -69,6 +69,13 @@ Show humidity level
 
 ---
 
+## Hardware Setup (NodeAI Device)
+
+<img width="3807" height="3149" alt="Hardware" src="https://github.com/user-attachments/assets/4641d2cf-06ac-485c-a171-7052fd579900" />
+
+---
+---
+
 ## Architecture
 
 <img width="1536" height="1024" alt="SystemArch" src="https://github.com/user-attachments/assets/80348b71-3ea3-4155-b4b9-b5332d6017ef" />
