@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from fastapi.responses import RedirectResponse
-from app.services.mqtt_service import connect_mqtt
+from app.services.mqtt_service import node_mqtt
 
 from app.api.routes import device
 
@@ -26,7 +26,7 @@ def create_app() -> FastAPI:
 
     @app.on_event("startup")
     def startup_event():
-        connect_mqtt()
+        node_mqtt.connect_mqtt()
 
     @app.get("/", include_in_schema=False)
     def root():

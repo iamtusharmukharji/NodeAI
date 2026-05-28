@@ -2,7 +2,7 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from app.services.gemini_service import node_gemini
-from app.services.mqtt_service import publish_mqtt
+from app.services.mqtt_service import node_mqtt
 from app.cred_loder import creds
 import asyncio
 
@@ -26,7 +26,7 @@ async def prompt(prompt : str):
                 "cmd" : llm_response["data"]
             }
 
-            publish_mqtt(publish_topic, msg)
+            node_mqtt.publish_mqtt(publish_topic, msg)
 
         response = {"success":True, "data":llm_response["message"]}
         return JSONResponse(content=response, status_code=200)
