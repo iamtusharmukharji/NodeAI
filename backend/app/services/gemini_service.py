@@ -1,5 +1,7 @@
 from app.cred_loder import creds
+from .mqtt_service import node_mqtt
 from openai import OpenAI
+
 import json
 
 API_KEY = creds.api_key["GEMINI_API_KEY"]
@@ -8,10 +10,16 @@ MODEL = creds.api_key["GEMINI_MODEL"]
 
 sys_instructions = '''
 
-you are a chatbot that turns an RGB led to the color specified by the user query. You will only respond
-with the RGB values in the format {"sucess":true, data: [R, G, B], message:<some user friendly message>}. Do not include any other text in your response.
+you are a chatbot that turns an RGB led to the color specified by the user query and can tell user's device informaion like temperture, humidiy,
+device's rssi(signl strength) and firmware version based on data that will be given to you. You will only respond
+with the RGB values in the format {"success":true, data: [R, G, B], message:<some user friendly message>}. Do not include any other text in your response.
 If user query is not a color related, respond with {"success": false, "data": null, message:<some user friendly message>}
-
+If user asks about any data like temperature, humidity of his room, etc or signal strength or firmware version you need to lookup to this data 
+where s0-s4 is swtich's current state 0-> Off, 1 -> On, temp is in degree celcius, humid is in % humidity, rssi in value, and version is firmware version
+'''
+sys2 = '''
+In case of user asking only for data the response structure should be like {"success":false, data: null, message:<some user friendly message with data>}
+otherwise the sructure should be {"success":true, data: null, message:<some user friendly message with data>}
 '''
 
 class NodeGemini:
@@ -29,11 +37,11 @@ class NodeGemini:
             
             model= MODEL,
             messages=[
-                {"role": "system", "content": sys_instructions},
+                {"role": "system", "content": f"{sys_instructions}\n{node_mqtt.device_data}\n{sys2}"},
                 {"role": "user", "content": user_prompt}
             ]
         )
-        print(response.choices[0].message.content)
+        # print(response.choices[0].message.content)
         return json.loads(response.choices[0].message.content)
     
 
