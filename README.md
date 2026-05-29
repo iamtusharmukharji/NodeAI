@@ -18,6 +18,17 @@ The hardware setup currently includes:
 
 ---
 
+
+## User Interface
+
+NodeAI provides a modern AI-powered interface for controlling real-world IoT devices using natural language commands. The frontend includes an interactive chat assistant, real-time device communication, quick command actions, and live sensor-aware responses powered by Gemini AI, FastAPI, MQTT, and NodeMCU.
+
+<img width="1914" height="1042" alt="NodeAI Web_2" src="https://github.com/user-attachments/assets/c9a61296-7e68-49d8-a7cf-c7b82158bfad" />
+
+<img width="1918" height="1042" alt="NodeAI Web_1" src="https://github.com/user-attachments/assets/fb523bd3-561c-4c81-8182-d5ea9be42f32" />
+
+---
+
 ## Features
 
 * Natural language based device control
@@ -67,6 +78,13 @@ Show humidity level
 * DHT11 Sensor
 * MQTT Broker
 
+---
+
+## Hardware Setup (NodeAI Device)
+
+<img width="3807" height="3149" alt="Hardware" src="https://github.com/user-attachments/assets/4641d2cf-06ac-485c-a171-7052fd579900" />
+
+---
 ---
 
 ## Architecture
