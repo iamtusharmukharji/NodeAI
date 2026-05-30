@@ -342,6 +342,13 @@ body {
   border-bottom-left-radius: 4px;
 }
 
+.message.error {
+  background: #f53939;
+  color: white;
+  margin-right: auto;
+  border-bottom-left-radius: 4px;
+}
+
 .chips {
   display: flex;
   gap: 10px;

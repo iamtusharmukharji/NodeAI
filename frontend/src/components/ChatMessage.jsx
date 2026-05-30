@@ -1,5 +1,17 @@
 function ChatMessage({ sender, text }) {
-  return <div className={`message ${sender}`}>{text}</div>;
+  const header = sender === "error" ? "Oops!" : null;
+
+  return (
+    <div className={`message ${sender}`}>
+      {header && (
+        <>
+          <strong>{header}</strong>
+          <br />
+        </>
+      )}
+      {text}
+    </div>
+  );
 }
 
 export default ChatMessage;

@@ -18,8 +18,10 @@ async def prompt(prompt : str):
     try:
         
         llm_response = await asyncio.to_thread(node_gemini.get_response, prompt)
+        
+        response = {"success":llm_response["success"], "data":None, "message":None}
 
-        if llm_response['success']:
+        if llm_response['data']:
             
             msg = {
                 "cmd_type" : "rgb",
@@ -27,10 +29,19 @@ async def prompt(prompt : str):
             }
 
             node_mqtt.publish_mqtt(publish_topic, msg)
-
-        response = {"success":True, "data":llm_response["message"]}
+        
+        if llm_response["success"]:
+        
+            response["data"] = llm_response["message"]
+        
+        elif not llm_response["success"]:
+            response["message"] = llm_response["message"]
+        
+        
+        
         return JSONResponse(content=response, status_code=200)
     
     except Exception as err:
+        
         response = {"success":False, "message":str(err)}
         return JSONResponse(content=response, status_code=400)
