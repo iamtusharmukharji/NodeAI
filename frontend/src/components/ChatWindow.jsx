@@ -25,15 +25,24 @@ function ChatWindow({ isOpen, onClose }) {
     setLoading(true);
 
     try {
-      const response = await sendPrompt(prompt);
-
-      setMessages((prev) => [
-        ...prev,
-        {
-          sender: "bot",
-          text: response.data,
-        },
-      ]);
+        const response = await sendPrompt(prompt);
+        if (response.success) {
+            setMessages((prev) => [
+            ...prev,
+            {
+            sender: "bot",
+            text: response.data,
+            },
+        ]);
+        } else {
+            setMessages((prev) => [
+            ...prev,
+            {
+            sender: "error",
+            text: response.message,
+            },
+        ]);
+        }
     } catch (error) {
       setMessages((prev) => [
         ...prev,
@@ -73,11 +82,12 @@ function ChatWindow({ isOpen, onClose }) {
         </div>
 
         <div className="chips">
+          
+          <CommandChip text="Set lights to orange" onClick={handleSend} />
+          <CommandChip text="What is the current temp and humidity?" onClick={handleSend} />
           <CommandChip text="Turn off the lights" onClick={handleSend} />
-          <CommandChip text="Set RGB to blue" onClick={handleSend} />
-          <CommandChip text="What is the temperature?" onClick={handleSend} />
-          <CommandChip text="Show humidity" onClick={handleSend} />
-          <CommandChip text="Check signal strength" onClick={handleSend} />
+          {/* <CommandChip text="Show humidity" onClick={handleSend} /> */}
+          {/* <CommandChip text="Check signal strength" onClick={handleSend} /> */}
         </div>
 
         <div className="chat-input">
